@@ -8,7 +8,7 @@ env:
   TZ: Asia/Shanghai
   OPENWRT_REPO: openwrt/openwrt
   TAG: v22.03.0
-
+  CONFIG_URL: gist.githubusercontent.com/oygza/a13cbe42e1f089288c669cf7ece946e0/raw
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -23,6 +23,7 @@ jobs:
       run: |
         ls -all
         git branch --show-current
+
     # - name: init env
     #   run: |
     #     sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -31,3 +32,22 @@ jobs:
     #     sudo -E apt-get -qq autoremove --purge
     #     sudo -E apt-get -qq clean
     #     sudo timedatectl set-timezone "$TZ"
+
+    # - name: update feeds
+    #   run: |
+    #     ./scripts/feeds update -a && ./scripts/feeds install -a
+
+    - name: generate config file
+      run: |
+        rm ./.config
+        touch ./.config
+        curl -o ./.config -fsSL $CONFIG_URL 
+        # make defconfig
+        
+    # - name: download dependency
+    #   run: |
+    #     make download -j8 || make download -j1 V=s
+
+    # - name: starting build source code
+    #   run: |
+    #     make -j$(nproc) || make -j1 V=s
