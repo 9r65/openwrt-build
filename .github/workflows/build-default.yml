@@ -6,6 +6,8 @@ on:
 
 env:
   TZ: Asia/Shanghai
+  OPENWRT_REPO: openwrt/openwrt
+  TAG: v22.03.0
 
 jobs:
   build:
@@ -14,8 +16,9 @@ jobs:
     - name: checkout source code
       uses: actions/checkout@master
       with:
-        repository: openwrt/openwrt
-        ref: 'v22.03.0'
+        repository: $OPENWRT_REPO
+        ref: $TAG
+        
     - name: list file
       run: |
         ls -all
