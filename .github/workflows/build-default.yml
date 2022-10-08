@@ -2,7 +2,7 @@ name: build x86 openwrt
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 env:
   TZ: Asia/Shanghai
