@@ -16,9 +16,9 @@ jobs:
     - name: checkout source code
       uses: actions/checkout@master
       with:
-        repository: $OPENWRT_REPO
-        ref: $TAG
-        
+        repository: env.OPENWRT_REPO
+        ref: env.TAG
+
     - name: list file
       run: |
         ls -all
