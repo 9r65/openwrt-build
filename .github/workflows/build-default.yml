@@ -44,10 +44,19 @@ jobs:
         make defconfig
         cat ./.config
         
-    # - name: download dependency
-    #   run: |
-    #     make download -j8 || make download -j1 V=s
+    - name: download dependency
+      run: |
+        make download -j8 || make download -j1 V=s
+        # 删除下载错误小文件
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
 
-    # - name: starting build source code
-    #   run: |
-    #     make -j$(nproc) || make -j1 V=s
+    - name: starting build source code
+      run: |
+        make -j$(nproc) || make -j1 V=s
+        df -hT
+
+    - name: view build file
+      run: |
+        ls ./bin/targets/*/*
+        
