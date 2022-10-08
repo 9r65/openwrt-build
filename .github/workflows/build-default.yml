@@ -39,7 +39,6 @@ jobs:
 
     - name: generate config file
       run: |
-        rm ./.config
         touch ./.config
         curl -o ./.config -fsSL $CONFIG_URL 
         # make defconfig
